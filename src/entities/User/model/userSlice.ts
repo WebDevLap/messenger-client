@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '@shared/api';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IUser } from "../types";
 
 interface IState {
   user: IUser | null;
@@ -9,11 +9,15 @@ const initialState: IState = {
   user: null,
 };
 
-const getUser = createAsyncThunk('user/getUser', async function () {});
-
-export const userSlice = createSlice({
-  name: 'user',
+const UserSlice = createSlice({
+  name: "user",
   initialState: initialState,
-  reducers: {},
-  extraReducers: (builder) => {},
+  reducers: {
+    setUser: (state, action: PayloadAction<IUser | null>) => {
+      state.user = action.payload;
+    }
+  },
 });
+
+export const { setUser } = UserSlice.actions;
+export const userSlice = UserSlice.reducer;
