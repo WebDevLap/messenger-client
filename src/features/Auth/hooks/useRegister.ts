@@ -19,6 +19,7 @@ export function useRegister() {
       dispatch(snackSuccess("Вы успешно зарегистрировались!"));
     } catch (err) {
       dispatch(snackError("Не удалось зарегистрироваться!"));
+      throw new Error("Query error");
     }
   };
 }

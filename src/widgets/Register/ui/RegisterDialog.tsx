@@ -12,11 +12,7 @@ import { useInput } from "@shared/hooks/useInput";
 import React from "react";
 import { setRegisterDialogIsOpen } from "..";
 import { useRegister } from "@features/Auth";
-import {
-  setIsOpen,
-  setSeverity,
-  setText,
-} from "@widgets/Snackbar";
+import { setIsOpen, setSeverity, setText } from "@widgets/Snackbar";
 
 export const RegisterDialog = () => {
   const email = useInput("", {
@@ -48,6 +44,14 @@ export const RegisterDialog = () => {
     (state) => state.register.isDialogOpen
   );
 
+  function alInputsClear() {
+    email.clear();
+    password.clear();
+    firstName.clear();
+    lastName.clear();
+    nickName.clear();
+  }
+
   React.useEffect(() => {
     if (email.isValid && password.isValid) {
       setIsValid(true);
@@ -71,7 +75,8 @@ export const RegisterDialog = () => {
       password: password.value,
       email: email.value,
     });
-    onClose()
+    onClose();
+    alInputsClear();
   }
 
   function onClose() {

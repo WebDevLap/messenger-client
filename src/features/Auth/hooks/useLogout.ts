@@ -13,6 +13,8 @@ export const useLogout = () => {
       dispatch(snackSuccess("Вы успешно вышли с аккаунта"));
     } catch (err) {
       dispatch(snackError("Не удалось выйти с аккаунта"));
+      throw new Error('Query error')
+
     }
   };
 };

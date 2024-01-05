@@ -34,13 +34,19 @@ export const LoginDialog = () => {
     }
   }, [email.isValid, password.isValid]);
 
-  function onSubmit() {
+  function alInputsClear() {
+    email.clear();
+    password.clear();
+  }
+
+  async function onSubmit() {
     if (!isValid) return;
-    login({
+    const res = await login({
       email: email.value,
       password: password.value,
     });
-    onClose()
+    onClose();
+    alInputsClear();
   }
 
   function onClose() {

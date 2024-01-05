@@ -4,16 +4,11 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  SvgIconTypeMap,
 } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { IDrawerItem } from "../types";
 
-interface IDrawerItem {
-  icon: OverridableComponent<SvgIconTypeMap<object, "svg">>;
-  text: string;
-  func: () => unknown;
-}
+
 
 export const DrawerEl = ({
   drawerItems,
@@ -31,20 +26,23 @@ export const DrawerEl = ({
   return (
     <Drawer open={open} onClose={drawerClose} anchor="right">
       <List>
-        {drawerItems.map((item, index) => (
-          <ListItemButton
-            key={index}
-            onClick={() => {
-              item.func();
-              drawerClose();
-            }}
-          >
-            <ListItemIcon>
-              <item.icon />
-            </ListItemIcon>
-            <ListItemText>{item.text}</ListItemText>
-          </ListItemButton>
-        ))}
+        {drawerItems.map((item, index) => {
+          if (item.hideExpr) return <></>;
+          return (
+            <ListItemButton
+              key={index}
+              onClick={() => {
+                item.func();
+                drawerClose();
+              }}
+            >
+              <ListItemIcon>
+                <item.icon />
+              </ListItemIcon>
+              <ListItemText>{item.text}</ListItemText>
+            </ListItemButton>
+          );
+        })}
       </List>
     </Drawer>
   );

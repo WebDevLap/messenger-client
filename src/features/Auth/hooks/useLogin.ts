@@ -17,6 +17,7 @@ export const useLogin = () => {
       dispatch(setUser(user.data));
     } catch (err) {
       dispatch(snackError("Не удалось войти в аккаунт"));
+      throw new Error('Query error')
     }
   };
 };

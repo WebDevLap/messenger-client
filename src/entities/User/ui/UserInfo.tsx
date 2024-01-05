@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
-interface IMenuItem {
+export interface IMenuItem {
   icon: OverridableComponent<SvgIconTypeMap<object, "svg">>;
   text: string;
   func: () => unknown;
