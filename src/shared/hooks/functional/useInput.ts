@@ -47,7 +47,7 @@ interface IRules {
   isEmail?: boolean;
   noSpacing?: boolean;
   specialChars?: string;
-  onlyEnglish?:boolean
+  onlyEnglish?: boolean;
 }
 
 export const useInput = (defValue: string, rules: IRules) => {
@@ -57,6 +57,19 @@ export const useInput = (defValue: string, rules: IRules) => {
   const [isValid, setIsValid] = React.useState(false);
   const debounce = useDebounce();
   const error = isValid ? false : isShowError;
+
+  React.useEffect(() => {
+    isValidCheck();
+  }, []);
+
+  function isValidCheck() {
+    const e = {
+      target: {
+        value: defValue,
+      },
+    } as ChangeEvent<HTMLInputElement>;
+    onChange(e);
+  }
 
   function onChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setValue(e.target.value);
@@ -77,11 +90,12 @@ export const useInput = (defValue: string, rules: IRules) => {
   function onBlur() {
     setIsShowError(true);
   }
-  function clear() {
-    setValue("");
+  function clear(value?: string) {
+    defValue = value ? value : defValue
+    setValue(value ? value : '');
     setIsShowError(false);
     setErrorText("Ошибка!");
-    setIsValid(false);
+    isValidCheck();
   }
 
   return {

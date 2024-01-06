@@ -1,18 +1,18 @@
 import { useParams } from "react-router-dom";
-import { UserProfileCard } from "@widgets/UserProfileCard";
+import { UserProfileCard, initial as userProfileInitial } from "@widgets/UserProfileCard";
 import React from "react";
 import AuthService from "@Services/AuthService";
 import { ApiResStatusType } from "@shared/api";
-import { IUserProfile } from "@entities/User/types";
+import { useAppDispatch, useAppSelector } from "@app/store";
 
 export const UserPage = () => {
   const { id } = useParams();
   const [status, setStatus] = React.useState<ApiResStatusType>("pending");
-  const [user, setUser] = React.useState<IUserProfile>();
-
+  const user = useAppSelector(state => state.userProfile)
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
     getUser();
-  }, []);
+  }, [id]);
 
   async function getUser() {
     if (typeof id !== "string") {
@@ -21,7 +21,7 @@ export const UserPage = () => {
     }
     try {
       const res = await AuthService.getUser(id);
-      setUser(res.data);
+      dispatch(userProfileInitial(res.data))
       setStatus("fulfilled");
     } catch (er) {
       setStatus("rejected");

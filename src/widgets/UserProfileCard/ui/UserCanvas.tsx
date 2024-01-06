@@ -10,6 +10,7 @@ export const UserCanvas = ({ children }: { children: React.ReactNode }) => {
         position: "relative",
         bgcolor: grey[800],
         pl: 2,
+        pr: 2,
         "&:before": {
           borderRadius: "2em 2em 0em 0em",
           position: "absolute",

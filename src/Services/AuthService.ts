@@ -28,17 +28,15 @@ export default class AuthService {
   static async getUser(idOrNick: string) {
     return await homeAxios.get<IUserProfile>(`/api/users/${idOrNick}`);
   }
-  static async patchUser(param: FormData | string, isImg?: boolean) {
+  static async patchUser(param: FormData) {
     return await homeAxios.patch<IUserProfile>(
       "/api/users/me/",
       param,
-      isImg
-        ? {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        : {}
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
   }
 }

@@ -6,8 +6,8 @@ import { UserInfo } from "@entities/User";
 import MenuIcon from "@mui/icons-material/Menu";
 import { DrawerEl } from "./Drawer";
 import { useMenuItems } from "../hooks/useMenuItems";
-import { useDrawerItems } from "@shared/hooks/interface";
 import { AuthBtns } from "./AuthBtns";
+import { useDrawerItems } from "@shared/hooks/interface";
 
 export const Header = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -24,9 +24,9 @@ export const Header = () => {
     <Box
       sx={{
         pb: {
-          xs: 7.3,
-          sm: 8,
-          md: 7,
+          xs: 7.1,
+          sm: 8.1,
+          md: 8.1,
           lg: 8.1,
         },
       }}

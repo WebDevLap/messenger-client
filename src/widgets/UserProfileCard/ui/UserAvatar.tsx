@@ -8,10 +8,8 @@ import { setAvatar } from "..";
 import { setUserAvatar } from "@entities/User";
 
 export const UserAvatar = ({
-  src,
   isSelfProfile,
 }: {
-  src: string;
   isSelfProfile: boolean;
 }) => {
   const avatar = useAppSelector((state) => state.userProfile.avatar);
@@ -27,7 +25,6 @@ export const UserAvatar = ({
     <Box
       sx={{
         p: 0.5,
-        mb: 1,
 
         border: `5px solid ${blue[500]}`,
         borderRadius: "50%",
@@ -47,10 +44,20 @@ export const UserAvatar = ({
                 ".MuiBadge-badge": {
                   bgcolor: "pink.main",
                   p: 2,
-                  width: "35px",
-                  height: "35px",
                   borderRadius: "50%",
                   cursor: "pointer",
+                  height: {
+                    xs: 10,
+                    sm: 20,
+                    md: 30,
+                    lg: 40,
+                  },
+                  width: {
+                    xs: 10,
+                    sm: 20,
+                    md: 30,
+                    lg: 40,
+                  },
                 },
               }
             : {}
@@ -59,16 +66,22 @@ export const UserAvatar = ({
         <Avatar
           sx={{
             height: {
-              xs: 90,
-              sm: 120,
+              xs: 70,
+              sm: 100,
+              md: 120,
+              lg: 130,
+              xl: 150,
             },
             width: {
-              xs: 90,
-              sm: 120,
+              xs: 70,
+              sm: 100,
+              md: 120,
+              lg: 130,
+              xl: 150,
             },
             cursor: "pointer",
           }}
-          src={avatar ? avatar : src}
+          src={avatar}
         />
         <input
           style={{

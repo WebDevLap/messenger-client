@@ -6,10 +6,8 @@ import { setBgImg } from "..";
 import { uploadFile } from "../hooks/uploadFile";
 
 export const UserBgImg = ({
-  src,
   isSelfProfile,
 }: {
-  src: string;
   isSelfProfile: boolean;
 }) => {
   const dispatch = useAppDispatch();
@@ -21,11 +19,11 @@ export const UserBgImg = ({
   }
 
   return (
-    <Box sx={{ height: "400px", position: "relative" }}>
+    <Box sx={{ position: "relative", minHeight: '250px' }}>
       <img
-        src={bgImage ? bgImage : src}
+        src={bgImage}
         alt=""
-        style={{ width: "100%", maxHeight: "100%", objectFit: "cover" }}
+        style={{ width: "100%", maxHeight: "100%", objectFit: "cover",minHeight: 'inherit' }}
       />
       <Box sx={{ position: "absolute", top: 20, right: 20 }}>
         {isSelfProfile && (

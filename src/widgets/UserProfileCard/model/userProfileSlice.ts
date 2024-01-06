@@ -1,7 +1,7 @@
 import { IUserProfile } from "@entities/User/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: IUserProfile = {
+const initialState: IUserProfile | null = {
   about: "",
   avatar: "",
   backgroundImage: "",
@@ -18,7 +18,15 @@ const UserProfileSlice = createSlice({
   initialState,
   reducers: {
     initial: (state, action: PayloadAction<IUserProfile>) => {
-      state = action.payload;
+      state.about = action.payload.about;
+      state.avatar = action.payload.avatar;
+      state.backgroundImage = action.payload.backgroundImage;
+      state.dateJoined = action.payload.dateJoined;
+      state.email = action.payload.email;
+      state.firstName = action.payload.firstName;
+      state.id = action.payload.id;
+      state.lastName = action.payload.lastName;
+      state.nickname = action.payload.nickname;
     },
     setAbout: (state, action: PayloadAction<string>) => {
       state.about = action.payload;

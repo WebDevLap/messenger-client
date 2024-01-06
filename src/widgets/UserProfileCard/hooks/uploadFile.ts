@@ -11,5 +11,5 @@ export async function uploadFile(
   if (!files || !files[0]) throw new Error('not found the file')
   const formData = new FormData();
   formData.append(propName, files[0]);
-  return await AuthService.patchUser(formData, true);
+  return await AuthService.patchUser(formData);
 }
