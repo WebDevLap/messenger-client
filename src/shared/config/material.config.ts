@@ -5,10 +5,12 @@ import { pink } from "@mui/material/colors";
 declare module "@mui/material/styles" {
   interface Palette {
     pink: Palette["primary"];
+    white: Palette["primary"];
   }
 
   interface PaletteOptions {
     pink?: PaletteOptions["primary"];
+    white?: PaletteOptions["primary"];
   }
 }
 
@@ -16,6 +18,7 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     pink: true;
+    white: true
   }
 }
 //_________________CUSTOM_PALETTE_END____________________
@@ -28,5 +31,10 @@ export const theme = createTheme({
       light: pink[300],
       dark: pink[700],
     },
+    white: {
+      main: '#e2e2e2',
+      contrastText: '#000'
+    }
+
   },
 });

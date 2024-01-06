@@ -1,19 +1,19 @@
-import { useAppSelector } from "@app/store";
+import { useAppDispatch, useAppSelector } from "@app/store";
 import { Alert, Snackbar } from "@mui/material";
 import React from "react";
 import { setIsOpen } from "..";
-import { useThrottle } from "@shared/hooks/useThrottle";
+import { useDebounce } from "@shared/hooks/functional";
 
 export const SnackbarEl = () => {
   const { isOpen, text, severity } = useAppSelector((state) => state.snackbar);
-  const throttle = useThrottle();
-
+  const debounce = useDebounce();
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
-    throttle(() => setIsOpen(false), 3500);
-  });
+    debounce(close, 3000);
+  }, [isOpen]);
 
   function close() {
-    setIsOpen(false);
+    dispatch(setIsOpen(false));
   }
 
   return (

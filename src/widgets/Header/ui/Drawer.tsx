@@ -3,12 +3,10 @@ import {
   List,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
+  Typography,
 } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 import { IDrawerItem } from "../types";
-
-
 
 export const DrawerEl = ({
   drawerItems,
@@ -27,7 +25,7 @@ export const DrawerEl = ({
     <Drawer open={open} onClose={drawerClose} anchor="right">
       <List>
         {drawerItems.map((item, index) => {
-          if (item.hideExpr) return <></>;
+          if (item.hideExpr) return <div key={index}></div>;
           return (
             <ListItemButton
               key={index}
@@ -35,11 +33,12 @@ export const DrawerEl = ({
                 item.func();
                 drawerClose();
               }}
+              sx={{ px: 4, py: 2 }}
             >
               <ListItemIcon>
-                <item.icon />
+                <item.icon fontSize="large" />
               </ListItemIcon>
-              <ListItemText>{item.text}</ListItemText>
+              <Typography variant="h6">{item.text}</Typography>
             </ListItemButton>
           );
         })}

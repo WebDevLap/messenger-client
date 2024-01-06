@@ -5,15 +5,19 @@ export interface IUser {
 }
 
 export interface IUserProfile {
-  quantity_posts: string;
-  quantity_followers: string;
-  quantity_following: string;
-  createdAt: string;
-  description: string;
+  // quantity_posts: string;
+  // quantity_followers: string;
+  // quantity_following: string;
+
+  about: string;
+  avatar: string;
+  backgroundImage: string;
+  dateJoined: string;
   email: string;
-  bg_image: string;
   firstName: string;
+  id: string;
   lastName: string;
+  nickname: string;
 }
 
 export interface IAddUser {

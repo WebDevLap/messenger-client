@@ -1,13 +1,13 @@
 import React from "react";
 import { AppBar, Box, Container, Toolbar } from "@mui/material";
 import { Logo } from "@shared/ui/Logo";
-import { AuthBtns } from "@widgets/Header/ui/AuthBtns";
 import { useAppSelector } from "@app/store";
 import { UserInfo } from "@entities/User";
 import MenuIcon from "@mui/icons-material/Menu";
 import { DrawerEl } from "./Drawer";
-import { useDrawerItems } from "../hooks/useDrawerItems";
 import { useMenuItems } from "../hooks/useMenuItems";
+import { useDrawerItems } from "@shared/hooks/interface";
+import { AuthBtns } from "./AuthBtns";
 
 export const Header = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -21,9 +21,18 @@ export const Header = () => {
   }
 
   return (
-    <>
+    <Box
+      sx={{
+        pb: {
+          xs: 7.3,
+          sm: 8,
+          md: 7,
+          lg: 8.1,
+        },
+      }}
+    >
       <AppBar>
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <Toolbar disableGutters>
             <Box
               sx={{
@@ -47,7 +56,17 @@ export const Header = () => {
             >
               {!user ? <AuthBtns /> : <UserInfo menuItems={menuItems} />}
             </Box>
-            <MenuIcon sx={{ ml: 2, cursor: "pointer" }} onClick={drawerOpen} />
+            <MenuIcon
+              onClick={drawerOpen}
+              sx={{
+                display: {
+                  sm: "block",
+                  md: "none",
+                },
+                ml: 2,
+                cursor: "pointer",
+              }}
+            />
           </Toolbar>
         </Container>
       </AppBar>
@@ -56,6 +75,6 @@ export const Header = () => {
         open={drawerIsOpen}
         setOpen={setDrawerIsOpen}
       />
-    </>
+    </Box>
   );
 };

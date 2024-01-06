@@ -8,11 +8,11 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { useInput } from "@shared/hooks/useInput";
 import React from "react";
 import { setRegisterDialogIsOpen } from "..";
 import { useRegister } from "@features/Auth";
 import { setIsOpen, setSeverity, setText } from "@widgets/Snackbar";
+import { useInput } from "@shared/hooks/functional";
 
 export const RegisterDialog = () => {
   const email = useInput("", {
@@ -32,7 +32,7 @@ export const RegisterDialog = () => {
     minWidth: 2,
   });
   const nickName = useInput("", {
-    maxWidth: 25,
+    maxWidth: 15,
     minWidth: 5,
     noSpacing: true,
     specialChars: "_",

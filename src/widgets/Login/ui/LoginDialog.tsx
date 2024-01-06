@@ -8,10 +8,10 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { useInput } from "@shared/hooks/useInput";
 import React from "react";
 import { setLoginDialogIsOpen } from "..";
 import { useLogin } from "@features/Auth/hooks/useLogin";
+import { useInput } from "@shared/hooks/functional";
 
 export const LoginDialog = () => {
   const email = useInput("", {

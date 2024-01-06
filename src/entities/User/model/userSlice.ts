@@ -15,9 +15,18 @@ const UserSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
-    }
+    },
+    setUserAvatar: (state, action: PayloadAction<string>) => {
+      if (!state.user) return;
+      state.user.avatar = action.payload;
+    },
+    setUserNickname: (state, action: PayloadAction<string>) => {
+      if (!state.user) return;
+
+      state.user.nickname = action.payload;
+    },
   },
 });
 
-export const { setUser } = UserSlice.actions;
+export const { setUser, setUserAvatar, setUserNickname } = UserSlice.actions;
 export const userSlice = UserSlice.reducer;

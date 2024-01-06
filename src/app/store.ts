@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { loginSlice } from "@widgets/Login";
 import { registerSlice } from "@widgets/Register";
 import { snackbarSlice } from "@widgets/Snackbar";
+import { userProfileSlice } from "@widgets/UserProfileCard";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     login: loginSlice,
     register: registerSlice,
     snackbar: snackbarSlice,
+    userProfile: userProfileSlice,
   },
 });
 
