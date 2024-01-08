@@ -1,2 +1,2 @@
 export * from './ui/UserProfileCard'
-export * from './model/userProfileSlice'
+export * from './ui/UserCardLoading'

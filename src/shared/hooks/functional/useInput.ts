@@ -30,7 +30,7 @@ function validRules(rules: IRules, value: string) {
         break;
       case "specialChars":
         let chars = rules[_rule].split("");
-        let value_crs = value.split("");
+        let value_crs = value.toLowerCase().split("");
         for (let src_char of value_crs) {
           if (![...chars, ...str].includes(src_char))
             return `Поле должно содержать только латиницу и символ "${chars}"`;
@@ -90,9 +90,12 @@ export const useInput = (defValue: string, rules: IRules) => {
   function onBlur() {
     setIsShowError(true);
   }
+  function showError() {
+    setIsShowError(true);
+  }
   function clear(value?: string) {
-    defValue = value ? value : defValue
-    setValue(value ? value : '');
+    defValue = value ? value : defValue;
+    setValue(value ? value : "");
     setIsShowError(false);
     setErrorText("Ошибка!");
     isValidCheck();
@@ -105,5 +108,6 @@ export const useInput = (defValue: string, rules: IRules) => {
     isShowError: error,
     errorText: error ? errorText : "",
     clear,
+    showError,
   };
 };

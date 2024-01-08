@@ -2,8 +2,8 @@ import { Box, Button } from "@mui/material";
 import { ChangeEvent } from "react";
 import { Edit } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "@app/store";
-import { setBgImg } from "..";
 import { uploadFile } from "../hooks/uploadFile";
+import { setBgImg } from "@entities/UserProfile";
 
 export const UserBgImg = ({
   isSelfProfile,
@@ -19,7 +19,7 @@ export const UserBgImg = ({
   }
 
   return (
-    <Box sx={{ position: "relative", minHeight: '250px' }}>
+    <Box sx={{ position: "relative", minHeight: '250px', maxHeight: '500px' }}>
       <img
         src={bgImage}
         alt=""

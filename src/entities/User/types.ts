@@ -21,11 +21,11 @@ export interface IUserProfile {
 }
 
 export interface IAddUser {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  nickname: string,
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  nickname: string;
 }
 export interface ITokens {
   access: string;
@@ -36,4 +36,18 @@ export interface ILogin {
   nickname?: string;
   email?: string;
   password: string;
+}
+
+export interface ISearchUserResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: ISearchUser[];
+}
+export interface ISearchUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  nickname: string;
+  avatar: string;
 }

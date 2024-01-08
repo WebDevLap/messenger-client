@@ -3,7 +3,6 @@ import {
   ITokens,
   ILogin,
   IUser,
-  IUserProfile,
 } from "@entities/User/types";
 import { homeAxios } from "@shared/api";
 import axios, { AxiosResponse } from "axios";
@@ -24,19 +23,5 @@ export default class AuthService {
   }
   static async login(props: ILogin): Promise<AxiosResponse<ITokens>> {
     return await homeAxios.post<ITokens>("/api/users/token/", props);
-  }
-  static async getUser(idOrNick: string) {
-    return await homeAxios.get<IUserProfile>(`/api/users/${idOrNick}`);
-  }
-  static async patchUser(param: FormData) {
-    return await homeAxios.patch<IUserProfile>(
-      "/api/users/me/",
-      param,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
   }
 }

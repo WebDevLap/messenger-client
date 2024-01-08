@@ -1,5 +1,5 @@
 export enum routes {
   main = "/",
-  profile = "profile",
-  user = "user/:id",
+  user = "/user",
+  search = '/search',
 }

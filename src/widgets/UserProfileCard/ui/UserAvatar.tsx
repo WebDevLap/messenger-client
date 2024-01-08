@@ -4,8 +4,8 @@ import { blue } from "@mui/material/colors";
 import React, { ChangeEvent } from "react";
 import { uploadFile } from "../hooks/uploadFile";
 import { useAppDispatch, useAppSelector } from "@app/store";
-import { setAvatar } from "..";
 import { setUserAvatar } from "@entities/User";
+import { setAvatar } from "@entities/UserProfile";
 
 export const UserAvatar = ({
   isSelfProfile,

@@ -14,6 +14,7 @@ export const UserId = () => {
           color: blue[100],
           cursor: "pointer",
           display: "inline-block",
+          wordBreak: 'break-all'
         }}
       >
         id="{user.id}"

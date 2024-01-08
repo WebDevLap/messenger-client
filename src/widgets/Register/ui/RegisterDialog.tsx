@@ -18,18 +18,22 @@ export const RegisterDialog = () => {
   const email = useInput("", {
     maxWidth: 254,
     isEmail: true,
+    noSpacing: true,
   });
   const password = useInput("", {
     maxWidth: 128,
     minWidth: 7,
+    noSpacing: true,
   });
   const firstName = useInput("", {
     maxWidth: 150,
     minWidth: 2,
+    noSpacing: true,
   });
   const lastName = useInput("", {
     maxWidth: 150,
     minWidth: 2,
+    noSpacing: true,
   });
   const nickName = useInput("", {
     maxWidth: 15,
@@ -51,6 +55,13 @@ export const RegisterDialog = () => {
     lastName.clear();
     nickName.clear();
   }
+  function showErrors() {
+    email.showError();
+    password.showError();
+    firstName.showError();
+    lastName.showError();
+    nickName.showError();
+  }
 
   React.useEffect(() => {
     if (email.isValid && password.isValid) {
@@ -65,7 +76,7 @@ export const RegisterDialog = () => {
       dispatch(setText("Форма не валидна!"));
       dispatch(setSeverity("error"));
       dispatch(setIsOpen(true));
-
+      showErrors()
       return;
     }
     const res = await register({

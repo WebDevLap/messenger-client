@@ -40,7 +40,10 @@ export const UserProfileCard = ({ user }: { user: IUserProfile }) => {
               <UserAvatar isSelfProfile={isSelfProfile} />
               <UserPopular />
             </Box>
+            <Box>
             <UserInfo />
+
+            </Box>
             {!isSelfProfile && <UserActions />}
           </Box>
         </UserCanvas>

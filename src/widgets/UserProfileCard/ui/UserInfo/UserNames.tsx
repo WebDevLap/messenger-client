@@ -1,4 +1,3 @@
-import AuthService from "@Services/AuthService";
 import { useAppDispatch, useAppSelector } from "@app/store";
 import {
   Box,
@@ -13,19 +12,24 @@ import {
 } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useInput } from "@shared/hooks/functional";
-import { setFirstName, setLastName } from "@widgets/UserProfileCard";
+import { setFirstName, setLastName } from "@entities/UserProfile";
 import React from "react";
+import { usePatchUser } from "@features/User";
 
-export const UserNames = () => {
+export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const user = useAppSelector((state) => state.userProfile);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const patchUser = usePatchUser();
+
   const firstName = useInput(user.firstName, {
     maxWidth: 30,
     minWidth: 2,
+    noSpacing: true,
   });
   const lastName = useInput(user.lastName, {
     maxWidth: 30,
     minWidth: 2,
+    noSpacing: true,
   });
   const dispatch = useAppDispatch();
 
@@ -35,18 +39,23 @@ export const UserNames = () => {
     lastName.clear();
   }
   function dialogOpen() {
+    if (!isSelfProfile) return;
     setIsDialogOpen(true);
   }
   async function onSubmit() {
+    if (!firstName.isValid || !lastName.isValid) {
+      firstName.showError();
+      lastName.showError();
+      return;
+    }
     const formData = new FormData();
     formData.append("firstName", firstName.value);
     formData.append("lastName", lastName.value);
 
-    const res = await AuthService.patchUser(formData);
+    const res = await patchUser(formData);
 
     dispatch(setFirstName(res.data.firstName));
     dispatch(setLastName(res.data.lastName));
-
 
     firstName.clear(res.data.firstName);
     lastName.clear(res.data.lastName);
@@ -63,6 +72,7 @@ export const UserNames = () => {
             color: blue[100],
             cursor: "pointer",
             display: "inline-block",
+            wordBreak: "break-all",
           }}
         >
           ~ {user.firstName} {user.lastName}
@@ -74,7 +84,7 @@ export const UserNames = () => {
         <DialogTitle>Change names</DialogTitle>
 
         <form onSubmit={onSubmit}>
-          <DialogContent>
+          <DialogContent sx={{ pt: 0 }}>
             <DialogContentText paragraph>
               To change names fill in the fields
             </DialogContentText>
@@ -89,7 +99,7 @@ export const UserNames = () => {
               {...firstName.handlers}
             />
             <TextField
-              label="First name change"
+              label="Last name change"
               value={lastName.value}
               fullWidth
               error={lastName.isShowError}
