@@ -12,12 +12,13 @@ export default class UserService {
       },
     });
   }
-  static async searchUsers(name: string) {
+  static async searchUsers(name: string, sortBy: string) {
     return await homeAxios.get<ISearchUserResponse>("/api/users/", {
       params: {
         offset: 0,
         limit: 15,
         name,
+        order: sortBy,
       },
     });
   }

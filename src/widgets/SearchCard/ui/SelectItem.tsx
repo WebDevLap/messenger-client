@@ -5,9 +5,11 @@ import React from "react";
 export const SelectItem = ({
   menu,
   menuItems,
+  children,
 }: {
   menu: ReturnType<typeof useMenu>;
   menuItems: { name: string; value: string }[];
+  children: React.ReactNode,
 }) => {
   return (
     <>
@@ -24,7 +26,7 @@ export const SelectItem = ({
           },
         }}
       >
-        Sort by
+        {children}
         <s style={{ marginLeft: 6 }}> {menuItems[menu.selected].name}</s>
       </Button>
       <Menu open={!!menu.openEl} onClose={menu.close} anchorEl={menu.openEl}>

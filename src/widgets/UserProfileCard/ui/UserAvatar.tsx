@@ -7,15 +7,12 @@ import { useAppDispatch, useAppSelector } from "@app/store";
 import { setUserAvatar } from "@entities/User";
 import { setAvatar } from "@entities/UserProfile";
 
-export const UserAvatar = ({
-  isSelfProfile,
-}: {
-  isSelfProfile: boolean;
-}) => {
+export const UserAvatar = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const avatar = useAppSelector((state) => state.userProfile.avatar);
   const dispatch = useAppDispatch();
 
   async function onInputChange(e: ChangeEvent<HTMLInputElement>) {
+    if (!isSelfProfile) return;
     const res = await uploadFile(e, "avatar");
     dispatch(setAvatar(res.data.avatar));
     dispatch(setUserAvatar(res.data.avatar));
@@ -79,26 +76,28 @@ export const UserAvatar = ({
               lg: 130,
               xl: 150,
             },
-            cursor: "pointer",
+            cursor: isSelfProfile ? "pointer" : 'auto',
           }}
           src={avatar}
         />
-        <input
-          style={{
-            width: "100%",
-            height: "100%",
-            opacity: 0,
-            position: "absolute",
-            top: 0,
-            display: "block",
-            zIndex: 100,
-            left: 0,
-            borderRadius: "20%",
-          }}
-          type="file"
-          accept="image/*,.jpg,.jpeg,.png,.webp"
-          onChange={onInputChange}
-        />
+        {isSelfProfile && (
+          <input
+            style={{
+              width: "100%",
+              height: "100%",
+              opacity: 0,
+              position: "absolute",
+              top: 0,
+              display: "block",
+              zIndex: 100,
+              left: 0,
+              borderRadius: "20%",
+            }}
+            type="file"
+            accept="image/*,.jpg,.jpeg,.png,.webp"
+            onChange={onInputChange}
+          />
+        )}
       </Badge>
     </Box>
   );

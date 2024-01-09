@@ -42,7 +42,7 @@ export const SearchCard = () => {
   }, []);
 
   async function searchQuery() {
-    const res = await searchUser(search.value);
+    const res = await searchUser(search.value, menuItems[menu.selected].value);
     setUsers((prev) => [...prev, ...res.data.results]);
     setQuery(res.data.next);
   }
@@ -102,7 +102,9 @@ export const SearchCard = () => {
         <DialogTitle>Settings</DialogTitle>
         <DialogContent sx={{ pt: 0 }}>
           <DialogContentText paragraph>Settings for search</DialogContentText>
-          <SelectItem menu={menu} menuItems={menuItems} />
+          <SelectItem menu={menu} menuItems={menuItems}>
+            Sort By
+          </SelectItem>
         </DialogContent>
       </Dialog>
     </Container>

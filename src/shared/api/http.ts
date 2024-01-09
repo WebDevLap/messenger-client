@@ -28,10 +28,10 @@ homeAxios.interceptors.response.use(
         localStorage.setItem("refresh", res.data.refresh);
         return homeAxios.request(originalReq);
       } catch (err) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh");
         if (import.meta.env.VITE_SHOW_ERRORS === "true") {
           console.error(err);
-          localStorage.removeItem("token");
-          localStorage.removeItem("refresh");
         }
       }
     }
