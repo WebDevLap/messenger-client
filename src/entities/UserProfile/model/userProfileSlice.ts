@@ -1,5 +1,5 @@
-import { IUserProfile } from "@entities/User/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUserProfile } from "../types";
 
 const initialState: IUserProfile | null = {
   about: "",

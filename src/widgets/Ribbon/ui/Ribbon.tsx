@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 export const Ribbon = () => {
   const drawerItems = useDrawerItems();
   return (
-    <List>
+    <List sx={{ border: "2px solid", borderRadius: "15px" }}>
       {drawerItems.map((item, index) => {
         if (item.hideExpr) return <div key={index}></div>;
 

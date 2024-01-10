@@ -8,11 +8,12 @@ export interface IPost {
   };
   picture: string;
   text: string;
-  quantity_likes: string;
-  quantity_views: string;
-  quantity_comments: string;
   comments: {
     text: string;
     answeredComments: string[];
-  };
+  }[];
+
+  // quantity_likes: string;
+  // quantity_views: string;
+  // quantity_comments: string;
 }

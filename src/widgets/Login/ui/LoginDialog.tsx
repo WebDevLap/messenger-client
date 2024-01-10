@@ -17,10 +17,12 @@ export const LoginDialog = () => {
   const email = useInput("", {
     maxWidth: 254,
     isEmail: true,
+    noSpacing: true,
   });
   const password = useInput("", {
     maxWidth: 128,
     minWidth: 7,
+    noSpacing: true,
   });
   const dispatch = useAppDispatch();
   const login = useLogin();

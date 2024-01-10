@@ -22,12 +22,12 @@ export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const patchUser = usePatchUser();
 
   const firstName = useInput(user.firstName, {
-    maxWidth: 30,
+    maxWidth: 15,
     minWidth: 2,
     noSpacing: true,
   });
   const lastName = useInput(user.lastName, {
-    maxWidth: 30,
+    maxWidth: 15,
     minWidth: 2,
     noSpacing: true,
   });

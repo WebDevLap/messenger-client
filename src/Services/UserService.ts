@@ -1,5 +1,6 @@
-import { ISearchUserResponse, IUserProfile } from "@entities/User";
+import { IUserProfile } from "@entities/UserProfile";
 import { homeAxios } from "@shared/api";
+import { ISearchUserResponse } from "@widgets/SearchCard/types";
 
 export default class UserService {
   static async getUser(idOrNick: string) {

@@ -1,13 +1,13 @@
 import { useAppSelector } from "@app/store";
-import { Container, Box } from "@mui/material";
+import { Container, Box, Button } from "@mui/material";
 import { UserAvatar } from "./UserAvatar";
 import { UserCanvas } from "./UserCanvas";
 import { UserBgImg } from "./UserBgImg";
 import { UserCard } from "./UserCard";
 import { UserPopular } from "./UserPopular";
 import { UserActions } from "./UserActions";
-import { IUserProfile } from "@entities/User";
 import { UserInfo } from "./UserInfo/UserInfo";
+import { IUserProfile } from "@entities/UserProfile";
 
 export const UserProfileCard = ({ user }: { user: IUserProfile }) => {
   const selfUser = useAppSelector((state) => state.user.user);
@@ -41,10 +41,10 @@ export const UserProfileCard = ({ user }: { user: IUserProfile }) => {
               <UserPopular />
             </Box>
             <Box>
-            <UserInfo />
-
+              <UserInfo />
             </Box>
             {!isSelfProfile && <UserActions />}
+            {isSelfProfile && <Button>Create post </Button>}
           </Box>
         </UserCanvas>
       </UserCard>

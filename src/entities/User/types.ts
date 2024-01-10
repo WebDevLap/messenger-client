@@ -4,21 +4,6 @@ export interface IUser {
   avatar: string;
 }
 
-export interface IUserProfile {
-  // quantity_posts: string;
-  // quantity_followers: string;
-  // quantity_following: string;
-
-  about: string;
-  avatar: string;
-  backgroundImage: string;
-  dateJoined: string;
-  email: string;
-  firstName: string;
-  id: string;
-  lastName: string;
-  nickname: string;
-}
 
 export interface IAddUser {
   firstName: string;
@@ -38,16 +23,3 @@ export interface ILogin {
   password: string;
 }
 
-export interface ISearchUserResponse {
-  count: number;
-  next: string;
-  previous: string;
-  results: ISearchUser[];
-}
-export interface ISearchUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  nickname: string;
-  avatar: string;
-}

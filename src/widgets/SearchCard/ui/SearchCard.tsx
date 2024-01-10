@@ -12,7 +12,7 @@ import React from "react";
 import { useDialog, useInput, useMenu } from "@shared/hooks/functional";
 import { SelectItem } from "./SelectItem";
 import { SearchInput } from "./SearchInput";
-import { ISearchUser, ISearchUserResponse } from "@entities/User";
+import { ISearchUser, ISearchUserResponse } from "../types";
 import { SearchUser } from "./SearchUser";
 import { useSearchUsers } from "@features/User";
 import { homeAxios } from "@shared/api";
@@ -32,7 +32,7 @@ export const SearchCard = () => {
   const searchUser = useSearchUsers();
   const search = useInput("", {});
   const [users, setUsers] = React.useState<ISearchUser[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [query, setQuery] = React.useState<null | string>(null);
 
   React.useEffect(() => {
@@ -82,6 +82,7 @@ export const SearchCard = () => {
         <Box sx={{ display: "flex", gap: 2, flexDirection: "column" }}>
           {users.map((item) => (
             <SearchUser
+              key={item.id}
               avatar={item.avatar}
               firstName={item.firstName}
               lastName={item.lastName}

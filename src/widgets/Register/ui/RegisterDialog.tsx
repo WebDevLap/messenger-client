@@ -26,12 +26,12 @@ export const RegisterDialog = () => {
     noSpacing: true,
   });
   const firstName = useInput("", {
-    maxWidth: 150,
+    maxWidth: 15,
     minWidth: 2,
     noSpacing: true,
   });
   const lastName = useInput("", {
-    maxWidth: 150,
+    maxWidth: 15,
     minWidth: 2,
     noSpacing: true,
   });

@@ -1,5 +1,10 @@
 export enum routes {
   main = "/",
   user = "/user",
-  search = '/search',
+  search = "/search",
+  create = "/create",
+
+  notification = '/notification',
+  likes = "/likes",
+  bookmarks = "/bookmarks"
 }

@@ -4,9 +4,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Bookmark, Notifications } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PageviewIcon from "@mui/icons-material/Pageview";
-
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { routes } from "@shared/config/routes";
 
 export interface IDrawerItem {
   icon: OverridableComponent<SvgIconTypeMap<object, "svg">>;
@@ -22,37 +23,43 @@ export const useDrawerItems = (): IDrawerItem[] => {
     {
       icon: HomeIcon,
       text: "home",
-      to: "/",
+      to: routes.main,
     },
     {
       icon: AccountCircleIcon,
       text: "profile",
-      to: "/user/@" + user?.nickname,
+      to: routes.user + "/@" + user?.nickname,
       hideExpr: !user,
     },
 
     {
       icon: Notifications,
       text: "notifications",
-      to: "/notification",
+      to: routes.notification,
+      hideExpr: !user,
+    },
+    {
+      icon: AddCircleIcon,
+      text: "create",
+      to: routes.create,
       hideExpr: !user,
     },
     {
       icon: Bookmark,
       text: "bookmarks",
-      to: "/bookmarks",
+      to: routes.bookmarks,
       hideExpr: !user,
     },
     {
       icon: FavoriteIcon,
       text: "likes",
-      to: "/likes",
+      to: routes.likes,
       hideExpr: !user,
     },
     {
       icon: PageviewIcon,
       text: "search",
-      to: "/search",
+      to: routes.search,
     },
   ];
 };

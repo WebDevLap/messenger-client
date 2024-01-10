@@ -1,5 +1,5 @@
 import UserService from "@Services/UserService";
-import { IUserProfile } from "@entities/User";
+import { IUserProfile } from "@entities/UserProfile";
 import { AxiosResponse } from "axios";
 import { ChangeEvent } from "react";
 

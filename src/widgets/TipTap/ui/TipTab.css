@@ -1,0 +1,42 @@
+.tip_tap.textEditor {
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+.tip_tap.menuBar {
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border: 2px solid grey;
+  border-radius: 8px 8px 0 0;
+}
+.tip_tap.menuBar button {
+  font-size: 18px;
+  margin: 4px;
+  margin-right: 5px;
+  outline: none;
+  border: none;
+  background: none;
+  color: #bebebe;
+  cursor: pointer;
+  background: transparent;
+  padding: 2px 3px;
+  border-radius: 2px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.tip_tap.menuBar button:last-child {
+  margin-right: 10px;
+}
+
+.tip_tap.heading3.is_active {
+  
+}
+
+button.tip_tap.is_active {
+  background: rgb(197, 197, 197, 0.5);
+  padding: 2px 3px;
+  border-radius: 2px;
+}

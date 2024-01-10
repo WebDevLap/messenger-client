@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IPost } from "@shared/api";
 
-// постов еще нету
 
 interface IState {
   posts: IPost[];
