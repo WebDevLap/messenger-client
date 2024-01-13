@@ -1,25 +1,23 @@
-import {
-  Box,
-  Container,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Paper,
-} from "@mui/material";
+import { Box, Container, Paper } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
-import { useDialog, useInput, useMenu } from "@shared/hooks/functional";
+import {
+  useDialog,
+  useInput,
+  useIsDark,
+  useMenu,
+} from "@shared/hooks/functional";
 import { SelectItem } from "./SelectItem";
 import { SearchInput } from "./SearchInput";
 import { ISearchUser, ISearchUserResponse } from "../types";
-import { SearchUser } from "./SearchUser";
 import { useSearchUsers } from "@features/User";
 import { homeAxios } from "@shared/api";
 import { lazyPattern } from "../utils/lazyPattern";
-import { NotFound } from "./NotFound";
+import { DialogWrapper } from "./DialogWrapper";
+import { UserCards } from "./UserCards";
 
 const menuItems = [
+  { name: "all", value: "" },
   { name: "first_name", value: "first_name" },
   { name: "first_name (DESC)", value: "-first_name" },
   { name: "last_name", value: "last_name" },
@@ -28,12 +26,13 @@ const menuItems = [
 
 export const SearchCard = () => {
   const dialog = useDialog();
-  const menu = useMenu();
+  const sortBy = useMenu();
   const searchUser = useSearchUsers();
   const search = useInput("", {});
   const [users, setUsers] = React.useState<ISearchUser[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [query, setQuery] = React.useState<null | string>(null);
+  const isDark = useIsDark();
 
   React.useEffect(() => {
     setUsers([]);
@@ -41,17 +40,29 @@ export const SearchCard = () => {
     // Первый запрос поиска юзеров
   }, []);
 
+  // сам запрос для посика юзеров
   async function searchQuery() {
-    const res = await searchUser(search.value, menuItems[menu.selected].value);
+    const res = await searchUser(
+      search.value,
+      menuItems[sortBy.selected].value
+    );
     setUsers((prev) => [...prev, ...res.data.results]);
     setQuery(res.data.next);
   }
 
-  function onSearchSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  // обычный сабмит
+  function onSearchSubmit() {
     setUsers([]);
     searchQuery();
   }
+
+  // сабмит для формы
+  function onSearchSubmitForm(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    onSearchSubmit();
+  }
+
+  // lazy loading при скролле
   React.useEffect(() => {
     document.addEventListener("scroll", searchScrollQuery);
 
@@ -69,45 +80,44 @@ export const SearchCard = () => {
     setIsLoading(false);
   }
 
+  function onDialogReset() {
+    sortBy.reset();
+  }
+  function onDialogApply() {
+    onSearchSubmit();
+    dialog.close();
+  }
+
   return (
-    <Container maxWidth="lg">
-      <Paper sx={{ bgcolor: grey[800], borderRadius: "2em", p: 2 }}>
-        <SearchInput
-          onTuneClick={dialog.open}
-          search={search}
-          onSubmit={onSearchSubmit}
-        />
-        <Box sx={{ height: 20 }} />
+    <>
+      <Container maxWidth="lg" sx={{p: 0}}>
+        <Paper
+          sx={{
+            bgcolor: isDark() ? grey[800] : grey[300],
+            borderRadius: "2em",
+            p: 2,
+          }}
+        >
+          <SearchInput
+            onTuneClick={dialog.open}
+            search={search}
+            onSubmit={onSearchSubmitForm}
+          />
+          <Box sx={{ height: 20 }} />
 
-        <Box sx={{ display: "flex", gap: 2, flexDirection: "column" }}>
-          {users.map((item) => (
-            <SearchUser
-              key={item.id}
-              avatar={item.avatar}
-              firstName={item.firstName}
-              lastName={item.lastName}
-              nickname={item.nickname}
-            />
-          ))}
-          {users.length < 1 && <NotFound />}
-        </Box>
-        <Box sx={{ height: 20 }} />
-      </Paper>
+          <UserCards users={users} />
+        </Paper>
+      </Container>
 
-      <Dialog
-        open={dialog.isOpen}
-        onClose={dialog.close}
-        maxWidth="xs"
-        fullWidth
+      <DialogWrapper
+        dialog={dialog}
+        onReset={onDialogReset}
+        onApply={onDialogApply}
       >
-        <DialogTitle>Settings</DialogTitle>
-        <DialogContent sx={{ pt: 0 }}>
-          <DialogContentText paragraph>Settings for search</DialogContentText>
-          <SelectItem menu={menu} menuItems={menuItems}>
-            Sort By
-          </SelectItem>
-        </DialogContent>
-      </Dialog>
-    </Container>
+        <SelectItem menu={sortBy} menuItems={menuItems}>
+          Sort By
+        </SelectItem>
+      </DialogWrapper>
+    </>
   );
 };

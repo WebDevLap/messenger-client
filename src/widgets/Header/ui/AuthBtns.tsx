@@ -21,6 +21,7 @@ export const AuthBtns = () => {
         variant="outlined"
         size="large"
         onClick={loginOpen}
+        color='inherit'
       >
         log in
       </Button>

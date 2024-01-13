@@ -1,3 +1,4 @@
+import { createPostSlice } from "@entities/CreatePost";
 import { userSlice } from "@entities/User/model/userSlice";
 import { userProfileSlice } from "@entities/UserProfile";
 import { configureStore } from "@reduxjs/toolkit";
@@ -13,6 +14,7 @@ export const store = configureStore({
     register: registerSlice,
     snackbar: snackbarSlice,
     userProfile: userProfileSlice,
+    createPost: createPostSlice,
   },
 });
 

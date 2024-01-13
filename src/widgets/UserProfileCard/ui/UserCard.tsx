@@ -6,7 +6,8 @@ export const UserCard = ({ children }: { children: React.ReactNode }) => {
   return (
     <Box
       sx={{
-        bgcolor: grey[700],
+        bgcolor: (theme) =>
+          theme.palette.mode === "dark" ? grey[700] : grey[300],
         borderRadius: "2em",
         width: "100%",
         overflow: "hidden",

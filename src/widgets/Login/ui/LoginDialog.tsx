@@ -12,6 +12,10 @@ import React from "react";
 import { setLoginDialogIsOpen } from "..";
 import { useLogin } from "@features/Auth/hooks/useLogin";
 import { useInput } from "@shared/hooks/functional";
+import { EmailInput } from "./EmailInput";
+import { PasswordInput } from "./PasswordInput";
+import { ActionBtns } from "./ActionBtns";
+import { DialogWrapper } from "./DialogWrapper";
 
 export const LoginDialog = () => {
   const email = useInput("", {
@@ -27,7 +31,10 @@ export const LoginDialog = () => {
   const dispatch = useAppDispatch();
   const login = useLogin();
   const [isValid, setIsValid] = React.useState(false);
+  const [isSending, setIsSending] = React.useState(false);
   const loginDialogIsOpen = useAppSelector((state) => state.login.isDialogOpen);
+  
+  // check for valid
   React.useEffect(() => {
     if (email.isValid && password.isValid) {
       setIsValid(true);
@@ -41,14 +48,17 @@ export const LoginDialog = () => {
     password.clear();
   }
 
-  async function onSubmit() {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (!isValid) return;
+    setIsSending(true);
     const res = await login({
       email: email.value,
       password: password.value,
     });
     onClose();
     alInputsClear();
+    setIsSending(false);
   }
 
   function onClose() {
@@ -56,39 +66,19 @@ export const LoginDialog = () => {
   }
 
   return (
-    <Dialog open={loginDialogIsOpen} maxWidth="sm" fullWidth onClose={onClose}>
-      <DialogTitle>Log In</DialogTitle>
-      <form onSubmit={onSubmit}>
-        <DialogContent sx={{ pt: 0 }}>
-          <DialogContentText paragraph>Log in to use app</DialogContentText>
-          <TextField
-            {...email.handlers}
-            helperText={<div style={{ minHeight: 30 }}>{email.errorText}</div>}
-            error={email.isShowError}
-            value={email.value}
-            fullWidth
-            label="Input email"
-          ></TextField>
-          <TextField
-            {...password.handlers}
-            helperText={
-              <div style={{ minHeight: 30 }}>{password.errorText}</div>
-            }
-            error={password.isShowError}
-            value={password.value}
-            label="Input password"
-            fullWidth
-          ></TextField>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="outlined" onClick={onClose}>
-            close
-          </Button>
-          <Button variant="contained" color="pink" type="submit">
-            submit
-          </Button>
-        </DialogActions>
-      </form>
-    </Dialog>
+    <DialogWrapper
+      isOpen={loginDialogIsOpen}
+      onClose={onClose}
+      onSubmit={onSubmit}
+    >
+      <DialogContent sx={{ pt: 0 }}>
+        <DialogContentText paragraph>Log in to use app</DialogContentText>
+        <EmailInput input={email} />
+        <PasswordInput input={password} />
+      </DialogContent>
+      <DialogActions>
+        <ActionBtns onClose={onClose} disabled={!isValid || isSending} />
+      </DialogActions>
+    </DialogWrapper>
   );
 };

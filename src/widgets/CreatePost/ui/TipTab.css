@@ -8,8 +8,8 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  border: 2px solid grey;
-  border-radius: 8px 8px 0 0;
+  /* border: 2px solid grey; */
+  background-color: rgb(115, 237, 196, 0.25)
 }
 .tip_tap.menuBar button {
   font-size: 18px;

@@ -42,7 +42,8 @@ export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     if (!isSelfProfile) return;
     setIsDialogOpen(true);
   }
-  async function onSubmit() {
+  async function onSubmit(e: any) {
+    e.preventDefault()
     if (!firstName.isValid || !lastName.isValid) {
       firstName.showError();
       lastName.showError();
@@ -69,7 +70,6 @@ export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
           variant="h5"
           onClick={dialogOpen}
           sx={{
-            color: blue[100],
             cursor: "pointer",
             display: "inline-block",
             wordBreak: "break-all",

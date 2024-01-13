@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IPost } from "@shared/api";
-
+import { IPost } from "..";
 
 interface IState {
   posts: IPost[];
@@ -14,7 +13,7 @@ const PostsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
+
 });
 
 export const postsSlice = PostsSlice.reducer;

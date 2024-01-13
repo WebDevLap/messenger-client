@@ -18,23 +18,23 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     pink: true;
-    white: true
+    white: true;
   }
 }
 //_________________CUSTOM_PALETTE_END____________________
 
 export const theme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
     pink: {
       main: pink[500],
       light: pink[300],
       dark: pink[700],
+      contrastText: "#fff",
     },
     white: {
-      main: '#e2e2e2',
-      contrastText: '#000'
-    }
-
+      main: "#e2e2e2",
+      contrastText: "#000",
+    },
   },
 });

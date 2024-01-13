@@ -23,6 +23,7 @@ import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 const MenuBar = ({ editor }: { editor: ReturnType<typeof useEditor> }) => {
   if (!editor) {
@@ -31,7 +32,7 @@ const MenuBar = ({ editor }: { editor: ReturnType<typeof useEditor> }) => {
 
   return (
     <div className="tip_tap menuBar">
-      <div style={{ width: "100vw", overflow: "auto", display: "flex" }}>
+      <div style={{ overflow: "auto", display: "flex" }}>
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "tip_tap is_active" : ""}
@@ -76,7 +77,11 @@ const MenuBar = ({ editor }: { editor: ReturnType<typeof useEditor> }) => {
               : ""
           }
         >
-          <TitleIcon fontSize="small" color="action" />
+          <TitleIcon
+            fontSize="small"
+            sx={{ width: 17, height: 17 }}
+            color="action"
+          />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -112,12 +117,14 @@ const MenuBar = ({ editor }: { editor: ReturnType<typeof useEditor> }) => {
 
 export const TipTap = ({
   setDescription,
+  description,
 }: {
   setDescription: React.Dispatch<React.SetStateAction<string>>;
+  description: string;
 }) => {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
-    content: ``,
+    content: description,
 
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();

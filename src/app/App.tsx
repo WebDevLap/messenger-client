@@ -15,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <Paper>
+    <Paper sx={{minHeight: '100vh'}}>
       <CssBaseline />
       <Header />
       <LoginDialog />

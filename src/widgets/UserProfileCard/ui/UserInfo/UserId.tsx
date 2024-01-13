@@ -11,10 +11,9 @@ export const UserId = () => {
       <Typography
         variant="h5"
         sx={{
-          color: blue[100],
           cursor: "pointer",
           display: "inline-block",
-          wordBreak: 'break-all'
+          wordBreak: "break-all",
         }}
       >
         id="{user.id}"

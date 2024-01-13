@@ -8,10 +8,18 @@ import { UserPopular } from "./UserPopular";
 import { UserActions } from "./UserActions";
 import { UserInfo } from "./UserInfo/UserInfo";
 import { IUserProfile } from "@entities/UserProfile";
+import { useNavigate } from "react-router-dom";
+import { routes } from "@shared/config/routes";
 
 export const UserProfileCard = ({ user }: { user: IUserProfile }) => {
   const selfUser = useAppSelector((state) => state.user.user);
   const isSelfProfile = user.id === selfUser?.id;
+  const navigate = useNavigate();
+
+  function onCreateClick() {
+    navigate(routes.create);
+  }
+
   return (
     <Container maxWidth="lg" sx={{ mb: 2, p: 0 }}>
       <UserCard>
@@ -40,11 +48,15 @@ export const UserProfileCard = ({ user }: { user: IUserProfile }) => {
               <UserAvatar isSelfProfile={isSelfProfile} />
               <UserPopular />
             </Box>
+          </Box>
+          <Box sx={{ mt: { sm: "-50px", xs: "-30px" } }}>
             <Box>
               <UserInfo />
             </Box>
             {!isSelfProfile && <UserActions />}
-            {isSelfProfile && <Button>Create post </Button>}
+            {isSelfProfile && (
+              <Button onClick={onCreateClick}>Create post</Button>
+            )}
           </Box>
         </UserCanvas>
       </UserCard>

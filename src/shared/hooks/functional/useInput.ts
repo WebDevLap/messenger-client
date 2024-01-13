@@ -109,5 +109,18 @@ export const useInput = (defValue: string, rules: IRules) => {
     errorText: error ? errorText : "",
     clear,
     showError,
+    setValue: function (value: string) {
+      setValue(value);
+
+      debounce(() => {
+        const errorText = validRules(rules, value);
+        if (errorText) {
+          setErrorText(errorText);
+          setIsValid(false);
+        } else {
+          setIsValid(true);
+        }
+      }, 300);
+    },
   };
 };

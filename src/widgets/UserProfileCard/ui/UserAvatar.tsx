@@ -57,7 +57,9 @@ export const UserAvatar = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     >
       <Badge
         overlap="circular"
-        badgeContent={isSelfProfile && <Edit />}
+        badgeContent={
+          isSelfProfile && <Edit sx={{ color: "pink.contrastText" }} />
+        }
         sx={
           isSelfProfile
             ? {
@@ -126,9 +128,6 @@ export const UserAvatar = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
                 <MenuItem
                   sx={{
                     position: "relative",
-                    "&:hover": {
-                      bgcolor: "success.dark",
-                    },
                   }}
                 >
                   <ListItemIcon>
@@ -155,9 +154,6 @@ export const UserAvatar = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
                 <MenuItem
                   sx={{
                     position: "relative",
-                    "&:hover": {
-                      bgcolor: "error.dark",
-                    },
                   }}
                   onClick={() => {
                     onInputDelete();

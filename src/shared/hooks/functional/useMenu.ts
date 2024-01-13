@@ -1,7 +1,7 @@
 import React from "react";
 
-export const useMenu = () => {
-  const [selected, setSelected] = React.useState(0);
+export const useMenu = (defIndex: number = 0) => {
+  const [selected, setSelected] = React.useState(defIndex);
   const [openEl, setOpenEl] = React.useState<null | HTMLElement>(null);
 
   function open(e: React.MouseEvent<HTMLElement>) {
@@ -10,12 +10,16 @@ export const useMenu = () => {
   function close() {
     setOpenEl(null);
   }
+  function reset(){
+    setSelected(defIndex)
+  }
 
   return {
     selected,
     openEl,
     open,
     close,
-    setSelected
+    setSelected,
+    reset
   };
 };

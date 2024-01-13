@@ -12,13 +12,15 @@ import { Edit } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "@app/store";
 import { uploadFile } from "../hooks/uploadFile";
 import { setBgImg } from "@entities/UserProfile";
-import { useMenu } from "@shared/hooks/functional";
+import { useIsDark, useMenu } from "@shared/hooks/functional";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UserService from "@Services/UserService";
+import { grey } from "@mui/material/colors";
 export const UserBgImg = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const dispatch = useAppDispatch();
   const bgImage = useAppSelector((state) => state.userProfile.backgroundImage);
   const menu = useMenu();
+  const isDark = useIsDark();
 
   async function fileInputChange(e: ChangeEvent<HTMLInputElement>) {
     const res = await uploadFile(e, "backgroundImage");
@@ -36,7 +38,14 @@ export const UserBgImg = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   }
 
   return (
-    <Box sx={{ position: "relative", minHeight: "250px", maxHeight: "500px" }}>
+    <Box
+      sx={{
+        position: "relative",
+        minHeight: "250px",
+        maxHeight: "500px",
+        bgcolor: isDark() ? grey[600] : grey[400],
+      }}
+    >
       <img
         src={bgImage}
         alt=""
@@ -76,9 +85,6 @@ export const UserBgImg = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
                 <MenuItem
                   sx={{
                     position: "relative",
-                    "&:hover": {
-                      bgcolor: "success.dark",
-                    },
                   }}
                 >
                   <ListItemIcon>
@@ -102,13 +108,8 @@ export const UserBgImg = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
                 <MenuItem
                   sx={{
                     position: "relative",
-                    "&:hover": {
-                      bgcolor: "error.dark",
-                    },
                   }}
-                  onClick={() => {
-                    fileInputDelete();
-                  }}
+                  onClick={fileInputDelete}
                 >
                   <ListItemIcon>
                     <DeleteIcon />

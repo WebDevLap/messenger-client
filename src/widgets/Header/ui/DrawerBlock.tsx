@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction } from "react";
 import { IDrawerItem } from "../types";
 import { NavLink } from "react-router-dom";
 
-export const DrawerEl = ({
+export const DrawerBlock = ({
   drawerItems,
   open,
   setOpen,
@@ -33,12 +33,12 @@ export const DrawerEl = ({
                 onClick={() => {
                   drawerClose();
                 }}
-                sx={{ px: 4, py: 2 }}
+                sx={{ px: 2, py: 1.5 }}
               >
                 <ListItemIcon>
-                  <item.icon fontSize="large" />
+                  <item.icon fontSize="medium" />
                 </ListItemIcon>
-                <Typography variant="h6">{item.text}</Typography>
+                <Typography variant="body1">{item.text}</Typography>
               </ListItemButton>
             </NavLink>
           );

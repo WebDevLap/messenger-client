@@ -22,7 +22,7 @@ export const Routers = () => {
     return (
       <Routes>
         <Route path={routes.main} element={<MainPage />} />
-        <Route path={routes.user} element={<UserPage />} />
+        <Route path={routes.user+'/:id'} element={<UserPage />} />
         <Route path={routes.search} element={<SearchPage/>}/>
 
       </Routes>

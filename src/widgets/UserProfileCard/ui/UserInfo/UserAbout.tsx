@@ -32,7 +32,8 @@ export const UserAbout = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     if (!isSelfProfile) return;
     setIsDialogOpen(true);
   }
-  async function onSubmit() {
+  async function onSubmit(e: any) {
+    e.preventDefault()
     if (!about.isValid) {
       about.showError();
       return;

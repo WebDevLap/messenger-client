@@ -86,12 +86,19 @@ h6 {
 img {
   object-fit: "cover";
 }
-.ribbon_a.active > * {
-  background-color: #424242;
+.ribbon_a_dark.active > * {
+  background-color: #a79f9f;
   transition: 0.3s;
   border-radius: 5px;
   overflow: hidden;
 }
+.ribbon_a_light.active > * {
+  background-color: #ccc7c7;
+  transition: 0.3s;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
 
 form{
   margin: 0 !important;

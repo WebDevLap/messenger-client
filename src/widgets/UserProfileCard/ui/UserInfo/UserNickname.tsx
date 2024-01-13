@@ -28,7 +28,6 @@ export const UserNickname = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     maxWidth: 15,
     specialChars: "_",
     noSpacing: true,
-
   });
 
   function dialogClose() {
@@ -39,7 +38,8 @@ export const UserNickname = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     if (!isSelfProfile) return;
     setIsDialogOpen(true);
   }
-  async function onSubmit() {
+  async function onSubmit(e: any) {
+    e.preventDefault();
     if (!nickname.isValid) {
       nickname.showError();
       return;
@@ -61,7 +61,7 @@ export const UserNickname = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
           variant="h5"
           onClick={dialogOpen}
           sx={{
-            color: blue[300],
+            color: blue[500],
             cursor: "pointer",
             display: "inline-block",
             wordBreak: "break-all",

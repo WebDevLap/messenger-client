@@ -6,8 +6,8 @@ const sx = {
   fontSize: {
     lg: 18,
     md: 15,
-    sm: 13,
-    xs: 10,
+    // sm: 13,
+    // xs: 10,
   },
 };
 
@@ -15,8 +15,8 @@ const iconSx = {
   fontSize: {
     lg: 20,
     md: 18,
-    sm: 15,
-    xs: 13,
+    // sm: 15,
+    // xs: 13,
   },
 };
 

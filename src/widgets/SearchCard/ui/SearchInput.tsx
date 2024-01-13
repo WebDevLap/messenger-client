@@ -16,6 +16,7 @@ export const SearchInput = ({
   const [isDisabled, setIsDisabled] = React.useState(false);
 
   function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     if (isDisabled) return;
     onSubmit(e);
     setIsDisabled(true);

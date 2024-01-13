@@ -1,18 +1,15 @@
 import { useAppDispatch, useAppSelector } from "@app/store";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
 import React from "react";
 import { setRegisterDialogIsOpen } from "..";
 import { useRegister } from "@features/Auth";
 import { setIsOpen, setSeverity, setText } from "@widgets/Snackbar";
 import { useInput } from "@shared/hooks/functional";
+import { FirstNameInput } from "./FirstNameInput";
+import { LastNameInput } from "./LastNameInput";
+import { NicknameInput } from "./NicknameInput";
+import { EmailInput } from "./EmailInput";
+import { PasswordInput } from "./PasswordInput";
+import { DialogWrapper } from "./DialogWrapper";
 
 export const RegisterDialog = () => {
   const email = useInput("", {
@@ -41,9 +38,10 @@ export const RegisterDialog = () => {
     noSpacing: true,
     specialChars: "_",
   });
-  const [isValid, setIsValid] = React.useState(false);
   const dispatch = useAppDispatch();
   const register = useRegister();
+  const [isValid, setIsValid] = React.useState(false);
+  const [isSending, setIsSending] = React.useState(false);
   const loginDialogIsOpen = useAppSelector(
     (state) => state.register.isDialogOpen
   );
@@ -71,14 +69,17 @@ export const RegisterDialog = () => {
     }
   }, [email.isValid, password.isValid]);
 
-  async function onSubmit() {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (!isValid) {
       dispatch(setText("Форма не валидна!"));
       dispatch(setSeverity("error"));
       dispatch(setIsOpen(true));
-      showErrors()
+      showErrors();
       return;
     }
+    setIsSending(true);
+
     const res = await register({
       firstName: firstName.value,
       lastName: lastName.value,
@@ -88,6 +89,7 @@ export const RegisterDialog = () => {
     });
     onClose();
     alInputsClear();
+    setIsSending(false);
   }
 
   function onClose() {
@@ -95,78 +97,17 @@ export const RegisterDialog = () => {
   }
 
   return (
-    <>
-      <Dialog
-        open={loginDialogIsOpen}
-        maxWidth="sm"
-        fullWidth
-        onClose={onClose}
-      >
-        <DialogTitle>Log In</DialogTitle>
-        <form onSubmit={onSubmit}>
-          <DialogContent sx={{ pt: 0 }}>
-            <DialogContentText paragraph>Log in to use app</DialogContentText>
-            <TextField
-              {...firstName.handlers}
-              helperText={
-                <div style={{ minHeight: 30 }}>{firstName.errorText}</div>
-              }
-              error={firstName.isShowError}
-              value={firstName.value}
-              fullWidth
-              label="Input first name"
-            ></TextField>
-            <TextField
-              {...lastName.handlers}
-              helperText={
-                <div style={{ minHeight: 30 }}>{lastName.errorText}</div>
-              }
-              error={lastName.isShowError}
-              value={lastName.value}
-              fullWidth
-              label="Input last name"
-            ></TextField>
-            <TextField
-              {...nickName.handlers}
-              helperText={
-                <div style={{ minHeight: 30 }}>{nickName.errorText}</div>
-              }
-              error={nickName.isShowError}
-              value={nickName.value}
-              fullWidth
-              label="Input nickname"
-            ></TextField>
-            <TextField
-              {...email.handlers}
-              helperText={
-                <div style={{ minHeight: 30 }}>{email.errorText}</div>
-              }
-              error={email.isShowError}
-              value={email.value}
-              fullWidth
-              label="Input email"
-            ></TextField>
-            <TextField
-              {...password.handlers}
-              helperText={
-                <div style={{ minHeight: 30 }}>{password.errorText}</div>
-              }
-              error={password.isShowError}
-              value={password.value}
-              label="Input password"
-              fullWidth
-            ></TextField>
-          </DialogContent>
-          <DialogActions>
-            <Button variant="outlined" onClick={onClose}>
-              close
-            </Button>
-            <Button variant="contained" color="pink" type="submit">
-              submit
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
-    </>
+    <DialogWrapper
+      onSubmit={onSubmit}
+      isOpen={loginDialogIsOpen}
+      onClose={onClose}
+      disabled={!isValid || isSending}
+    >
+      <FirstNameInput input={firstName} />
+      <LastNameInput input={lastName} />
+      <NicknameInput input={nickName} />
+      <EmailInput input={email} />
+      <PasswordInput input={password} />
+    </DialogWrapper>
   );
 };
