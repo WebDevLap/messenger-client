@@ -15,16 +15,18 @@ export const Header = () => {
   }
 
   return (
-    <AppBarEl>
-      <LogoBlock />
+    <>
+      <AppBarEl>
+        <LogoBlock />
 
-      <UserBlock/>
-      <MenuBtn onClick={drawerOpen} />
+        <UserBlock />
+        <MenuBtn onClick={drawerOpen} />
+      </AppBarEl>
       <DrawerBlock
         drawerItems={drawerItems}
         open={drawerIsOpen}
         setOpen={setDrawerIsOpen}
       />
-    </AppBarEl>
+    </>
   );
 };

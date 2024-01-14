@@ -24,6 +24,8 @@ import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { useInput } from "@shared/hooks/functional";
+import { Box } from "@mui/material";
 
 const MenuBar = ({ editor }: { editor: ReturnType<typeof useEditor> }) => {
   if (!editor) {
@@ -116,26 +118,32 @@ const MenuBar = ({ editor }: { editor: ReturnType<typeof useEditor> }) => {
 };
 
 export const TipTap = ({
-  setDescription,
   description,
 }: {
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
-  description: string;
+  description: ReturnType<typeof useInput>;
 }) => {
   const editor = useEditor({
+    ...description.handlers,
     extensions: [StarterKit, Underline],
-    content: description,
+    content: description.value,
 
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      setDescription(html);
+      description.setValue(html);
     },
   });
 
   return (
-    <div className="textEditor">
+    <Box
+      className="textEditor"
+      sx={
+        description.isShowError
+          ? { outline: "2px solid", outlineColor: "error.main" }
+          : {}
+      }
+    >
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
-    </div>
+    </Box>
   );
 };

@@ -3,11 +3,11 @@ import React from "react";
 
 export const ActionBtns = ({
   onSubmit,
-  onClose,
+  onCancel,
   isSubmitDisabled,
 }: {
   onSubmit: () => void;
-  onClose: () => void;
+  onCancel: () => void;
   isSubmitDisabled: boolean;
 }) => {
   return (
@@ -20,7 +20,7 @@ export const ActionBtns = ({
       >
         Publish
       </Button>
-      <Button size="medium" variant="outlined" onClick={onClose}>
+      <Button size="medium" variant="outlined" onClick={onCancel}>
         cancel
       </Button>
     </Box>

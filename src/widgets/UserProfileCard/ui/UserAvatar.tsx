@@ -24,7 +24,6 @@ export const UserAvatar = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const menu = useMenu();
   async function onInputChange(e: ChangeEvent<HTMLInputElement>) {
     // if (!isSelfProfile) return;
-    console.log(e);
     const res = await uploadFile(e, "avatar");
     dispatch(setAvatar(res.data.avatar));
     dispatch(setUserAvatar(res.data.avatar));

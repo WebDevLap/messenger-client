@@ -15,13 +15,20 @@ import {
   setTags as setCreatePostTags,
 } from "@entities/CreatePost";
 import { useCreatePost } from "@features/Post";
+import { useNavigate } from "react-router-dom";
+import { routes } from "@shared/config/routes";
 
 export const CreatePost = () => {
   const isDark = useIsDark();
   const dispatch = useAppDispatch();
-  const [description, setDescription] = React.useState(
-    useAppSelector((state) => state.createPost.description)
+  const navigate = useNavigate();
+  const description = useInput(
+    useAppSelector((state) => state.createPost.description),
+    {
+      minWidth: 20,
+    }
   );
+
   const [idDisabled, setIsDisabled] = React.useState(true);
   const [image, setImage] = React.useState<File | null>(
     useAppSelector((state) => state.createPost.image)
@@ -44,11 +51,17 @@ export const CreatePost = () => {
       formData.append("image", image);
     }
     formData.append("title", titleInput.value);
-    formData.append("content", description);
+    formData.append("content", description.value);
     createPost(formData);
   }
 
-  function onClose() {}
+  function onCancel() {
+    dispatch(setCreatePostDescription(""));
+    dispatch(setCreatePostImage(null));
+    dispatch(setCreatePostTitle(""));
+    dispatch(setCreatePostTags(""));
+    navigate(routes.main)
+  }
   // writing value from store on first render
   React.useEffect(() => {
     titleInput.setValue(createPostModel.titleInput);
@@ -58,8 +71,8 @@ export const CreatePost = () => {
 
   // write values to store
   React.useEffect(() => {
-    dispatch(setCreatePostDescription(description));
-  }, [description]);
+    dispatch(setCreatePostDescription(description.value));
+  }, [description.value]);
   React.useEffect(() => {
     dispatch(setCreatePostImage(image));
   }, [image]);
@@ -73,26 +86,26 @@ export const CreatePost = () => {
 
   // check for validate
   React.useEffect(() => {
-    if (titleInput.isValid && tagsInput.isValid) {
+    if (titleInput.isValid && tagsInput.isValid && description.isValid) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
-  }, [titleInput.isValid, tagsInput.isValid]);
+  }, [titleInput.isValid, tagsInput.isValid, description.isValid]);
   // end
 
   return (
-    <Box sx={{ bgcolor: grey[100], borderRadius: 1 }}>
+    <Box sx={{ bgcolor: isDark() ? grey[800] : grey[100], borderRadius: 1 }}>
       <Box sx={{ p: 2 }}>
         <AddPreview setImage={setImage} />
         <TitleInput input={titleInput} />
         <TagsInput input={tagsInput} />
         <Box></Box>
       </Box>
-      <TipTap setDescription={setDescription} description={description} />
+      <TipTap description={description} />
       <ActionBtns
         onSubmit={onSubmit}
-        onClose={onClose}
+        onCancel={onCancel}
         isSubmitDisabled={idDisabled}
       />
     </Box>
