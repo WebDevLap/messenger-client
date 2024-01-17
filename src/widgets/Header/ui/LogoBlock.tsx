@@ -3,6 +3,7 @@ import { Logo } from '@shared/ui/Logo'
 import React from 'react'
 
 export const LogoBlock = () => {
+
   return (
     <Box
         sx={{

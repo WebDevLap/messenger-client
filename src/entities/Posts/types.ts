@@ -3,6 +3,8 @@ import { IUser } from "@entities/User";
 interface IUserAnswer {
   text: string;
   answeredId: string | null;
+  user: IUser;
+        // IUser: {id, nickname, avatar}
 }
 
 export interface IPost {
@@ -15,19 +17,14 @@ export interface IPost {
   };
   picture: string;
   text: string;
+  tags: string;
   comments: {
     text: string;
-    answeredComments: (IUser & IUserAnswer)[];
-    //   id: string;
-    // nickname: string;
-    // avatar: string;
-    // text: string
-    //  answeredId: string | null
+    user: IUser;
+    answeredComments: IUserAnswer[];
   }[];
-  tags: string[];
 
   // quantity_likes: string;
   // quantity_views: string;
   // quantity_comments: string;
 }
-

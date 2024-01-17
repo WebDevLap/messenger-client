@@ -1,6 +1,6 @@
+import UserService from "@Services/UserService";
 import { useAppDispatch, useAppSelector } from "@app/store";
 import { setAbout } from "@entities/UserProfile";
-import { usePatchUser } from "@features/User";
 import {
   Box,
   Button,
@@ -18,7 +18,6 @@ import React from "react";
 export const UserAbout = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const user = useAppSelector((state) => state.userProfile);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const patchUser = usePatchUser();
   const about = useInput(user.about, {
     maxWidth: 300,
     minWidth: 0,
@@ -32,8 +31,8 @@ export const UserAbout = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     if (!isSelfProfile) return;
     setIsDialogOpen(true);
   }
-  async function onSubmit(e: any) {
-    e.preventDefault()
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
     if (!about.isValid) {
       about.showError();
       return;
@@ -41,7 +40,7 @@ export const UserAbout = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     const formData = new FormData();
     formData.append("about", about.value);
     console.log(about.value.length);
-    const res = await patchUser(formData);
+    const res = await UserService.patchUser(formData);
     dispatch(setAbout(res.data.about));
     setIsDialogOpen(false);
   }

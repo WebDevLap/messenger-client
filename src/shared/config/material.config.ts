@@ -25,7 +25,7 @@ declare module "@mui/material/Button" {
 
 export const theme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
     pink: {
       main: pink[500],
       light: pink[300],

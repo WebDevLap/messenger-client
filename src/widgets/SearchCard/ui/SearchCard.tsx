@@ -10,11 +10,11 @@ import {
 import { SelectItem } from "./SelectItem";
 import { SearchInput } from "./SearchInput";
 import { ISearchUser, ISearchUserResponse } from "../types";
-import { useSearchUsers } from "@features/User";
 import { homeAxios } from "@shared/api";
 import { lazyPattern } from "../utils/lazyPattern";
 import { DialogWrapper } from "./DialogWrapper";
 import { UserCards } from "./UserCards";
+import UserService from "@Services/UserService";
 
 const menuItems = [
   { name: "all", value: "" },
@@ -27,7 +27,6 @@ const menuItems = [
 export const SearchCard = () => {
   const dialog = useDialog();
   const sortBy = useMenu();
-  const searchUser = useSearchUsers();
   const search = useInput("", {});
   const [users, setUsers] = React.useState<ISearchUser[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -42,7 +41,7 @@ export const SearchCard = () => {
 
   // сам запрос для посика юзеров
   async function searchQuery() {
-    const res = await searchUser(
+    const res = await UserService.searchUsers(
       search.value,
       menuItems[sortBy.selected].value
     );
@@ -90,7 +89,7 @@ export const SearchCard = () => {
 
   return (
     <>
-      <Container maxWidth="lg" sx={{p: 0}}>
+      <Container maxWidth="lg" sx={{ p: 0 }}>
         <Paper
           sx={{
             bgcolor: isDark() ? grey[800] : grey[300],

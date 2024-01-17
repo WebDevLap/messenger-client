@@ -10,16 +10,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import { useInput } from "@shared/hooks/functional";
 import { setFirstName, setLastName } from "@entities/UserProfile";
 import React from "react";
-import { usePatchUser } from "@features/User";
+import UserService from "@Services/UserService";
 
 export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
   const user = useAppSelector((state) => state.userProfile);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const patchUser = usePatchUser();
 
   const firstName = useInput(user.firstName, {
     maxWidth: 15,
@@ -42,8 +40,8 @@ export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     if (!isSelfProfile) return;
     setIsDialogOpen(true);
   }
-  async function onSubmit(e: any) {
-    e.preventDefault()
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
     if (!firstName.isValid || !lastName.isValid) {
       firstName.showError();
       lastName.showError();
@@ -53,7 +51,7 @@ export const UserNames = ({ isSelfProfile }: { isSelfProfile: boolean }) => {
     formData.append("firstName", firstName.value);
     formData.append("lastName", lastName.value);
 
-    const res = await patchUser(formData);
+    const res = await UserService.patchUser(formData);
 
     dispatch(setFirstName(res.data.firstName));
     dispatch(setLastName(res.data.lastName));

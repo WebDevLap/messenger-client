@@ -1,25 +1,27 @@
-import { useAuthme } from "@features/Auth/hooks/useAuthme";
 import { Container, CssBaseline, Grid, Paper } from "@mui/material";
 import { Header } from "@widgets/Header";
-import { LoginDialog } from "@widgets/Login";
-import { RegisterDialog } from "@widgets/Register/ui/RegisterDialog";
 import { SnackbarEl } from "@widgets/Snackbar";
 import React from "react";
 import { Routers } from "./Routers";
 import { Ribbon } from "@widgets/Ribbon";
+import { useAppDispatch } from "./store";
+import AuthService from "@Services/AuthService";
+import { setUser } from "@entities/User";
 
 function App() {
-  const authme = useAuthme();
+  const dispatch = useAppDispatch();
+
   React.useEffect(() => {
-    authme();
+    (async () => {
+      const res = await AuthService.authMe();
+      dispatch(setUser(res.data));
+    })();
   }, []);
 
   return (
-    <Paper sx={{minHeight: '100vh'}}>
+    <Paper sx={{ minHeight: "100vh" }}>
       <CssBaseline />
       <Header />
-      <LoginDialog />
-      <RegisterDialog />
       <Container maxWidth="lg" sx={{ p: 0 }}>
         <Grid container>
           <Grid

@@ -1,9 +1,4 @@
-import {
-  IAddUser,
-  ITokens,
-  ILogin,
-  IUser,
-} from "@entities/User/types";
+import { IAddUser, ITokens, ILogin, IUser } from "@entities/User/types";
 import { homeAxios } from "@shared/api";
 import axios, { AxiosResponse } from "axios";
 
@@ -12,7 +7,10 @@ export default class AuthService {
     return await homeAxios.get<IUser>("/api/users/me/");
   }
   static async register(props: IAddUser): Promise<AxiosResponse<ITokens>> {
-    return await homeAxios.post<ITokens>("/api/users/register/", props);
+    const res = await homeAxios.post<ITokens>("/api/users/register/", props);
+    localStorage.setItem("token", res.data.access);
+    localStorage.setItem("refresh", res.data.refresh);
+    return res;
   }
 
   static async getToken(): Promise<AxiosResponse<ITokens>> {

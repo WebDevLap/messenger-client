@@ -1,7 +1,7 @@
-import { CreatePost } from "@widgets/CreatePost";
 import React from "react";
-import "@widgets/CreatePost";
+// import "@widgets/CreatePost";
 import {  Container } from "@mui/material";
+import { CreatePost } from "@features/CreatePost";
 
 export const CreatePage = () => {
 

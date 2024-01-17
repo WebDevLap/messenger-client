@@ -1,17 +1,16 @@
-import { useAppDispatch } from "@app/store";
 import { Box, Button } from "@mui/material";
-import { setLoginDialogIsOpen } from "@widgets/Login";
-import { setRegisterDialogIsOpen } from "@widgets/Register";
 import React from "react";
+import { useLocalDispatch } from "../model/store";
+import { setLoginIsOpen, setRegisterIsOpen } from "../model/headerSlice";
 
 export const AuthBtns = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useLocalDispatch();
 
   function loginOpen() {
-    dispatch(setLoginDialogIsOpen(true));
+    dispatch(setLoginIsOpen(true));
   }
   function registerOpen() {
-    dispatch(setRegisterDialogIsOpen(true));
+    dispatch(setRegisterIsOpen(true));
   }
 
   return (
@@ -21,7 +20,7 @@ export const AuthBtns = () => {
         variant="outlined"
         size="large"
         onClick={loginOpen}
-        color='inherit'
+        color="inherit"
       >
         log in
       </Button>

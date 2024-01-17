@@ -5,6 +5,10 @@ import { MenuBtn } from "./MenuBtn";
 import { LogoBlock } from "./LogoBlock";
 import { DrawerBlock } from "./DrawerBlock";
 import { UserBlock } from "./UserBlock";
+import { Provider } from "react-redux";
+import { Dialogs } from "./Dialogs";
+import { localStore } from "../model/store";
+
 
 export const Header = () => {
   const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
@@ -13,9 +17,11 @@ export const Header = () => {
   function drawerOpen() {
     setDrawerIsOpen(true);
   }
+  
+  
 
   return (
-    <>
+    <Provider store={localStore}>
       <AppBarEl>
         <LogoBlock />
 
@@ -27,6 +33,7 @@ export const Header = () => {
         open={drawerIsOpen}
         setOpen={setDrawerIsOpen}
       />
-    </>
+      <Dialogs />
+    </Provider>
   );
 };
